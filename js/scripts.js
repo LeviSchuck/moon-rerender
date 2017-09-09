@@ -27,12 +27,12 @@ const store = new Monx({
       state.agreeText = "should be hidden";
     },
     addPrompts: function(state, payload) {
-      state.pendingPrompts = payload;
+      state.prompts = payload;
       state.pendingPrompts = true;
       console.log("Added prompts", payload);
     },
     clearPrompts: function(state) {
-      state.pendingPrompts = [];
+      state.prompts = [];
       state.pendingPrompts = false;
     }
   }
