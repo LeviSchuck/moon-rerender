@@ -9,38 +9,33 @@ Moon.use(Monx);
 const store = new Monx({
   state: {
     pendingAgree: true,
-    agreeText: "Yes",
-    // normally []
-    prompts: [{
-      label: "Adam Jensen",
-      scene: "adam"
-    }, {
-      label: "JC Denton",
-      scene: "jc"
-    }],
-    // normally false
-    pendingPrompts: true,
+    prompts: [],
+    pendingPrompts: false,
+    accepted: false,
+    choice: null,
   },
   actions: {
     agree: function(state) {
       state.pendingAgree = false;
-      state.agreeText = "should be hidden";
+      state.accepted = true;
     },
     addPrompts: function(state, payload) {
+      state.choice = null;
       state.prompts = payload;
       state.pendingPrompts = true;
-      console.log("Added prompts", payload);
+      console.log("Now state is",state.choice, state.prompts, state.pendingPrompts)
     },
-    clearPrompts: function(state) {
+    choose: function(state, choice) {
+      state.choice = choice;
       state.prompts = [];
       state.pendingPrompts = false;
+      console.log("Now state is",state.choice, state.prompts, state.pendingPrompts)
     }
   }
 });
 
 require("./components/button")(Moon);
 require("./components/prompt")(Moon);
-require("./components/tprompt")(Moon);
 
 const app = new Moon({
   root: "#app",
@@ -64,6 +59,10 @@ const app = new Moon({
 
       console.log("root agree called with", payload)
       store.dispatch("agree");
+    },
+    choose: function(payload) {
+      console.log("choice is made!", payload.key);
+      store.dispatch("choose", payload.key);
     }
   },
 });

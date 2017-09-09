@@ -3,7 +3,7 @@ var options = {
   name: 'c-button',
   methods: {
     clicked: function(e) {
-      console.log("clicked");
+      console.log("Clicked the button!")
       this.emit('click');
     }
   },
@@ -12,15 +12,21 @@ var options = {
     var color = instance.get("color");
     var size = instance.get("size");
     var content = instance.get("content");
-    console.log("Rendering button");
     var buttonClass = "";
+    var hasClass = false;
+    var attrs = {};
     if (color) {
       buttonClass += color + " ";
+      hasClass = true;
     }
     if (size) {
       buttonClass += size + " ";
+      hasClass = true;
     }
-    return m("button", {attrs: {class: buttonClass}}, {
+    if (hasClass) {
+      attrs["class"] = buttonClass;
+    }
+    return m("button", {attrs: attrs}, {
       dynamic: 1,
       eventListeners: {
         click: [function(event) {
@@ -31,6 +37,5 @@ var options = {
   },
 };
 module.exports = function(Moon) {
-  console.log(options);
   return Moon.extend('c-button', options);
 };

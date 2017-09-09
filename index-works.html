@@ -9,7 +9,7 @@
   </head>
 
   <body>
-    <a href="./index-works.html">Working</a>
+    <a href="./index.html">Broken</a>
     <div id="app" m-mask>
       <c-button m-if="store.state.pendingAgree" m-on:click="agree" content="Agree"></c-button>
       <div m-if="store.state.accepted">
@@ -17,7 +17,7 @@
           <prompt m-literal:options="store.state.prompts" m-literal:choice="store.state.choice" m-on:choose="choose"></prompt>
         </div>
       </div>
-
+      <prompt m-literal:options="store.state.prompts" m-literal:choice="store.state.choice" m-on:choose="choose"></prompt>
     </div>
     <script src="./dist/js/build.min.js"></script>
   </body>
