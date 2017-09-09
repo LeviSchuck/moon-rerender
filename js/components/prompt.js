@@ -11,11 +11,11 @@ var options = {
       console.log("I got a string :(")
     } else {
       buttons = options.map(function(option){
-        return m("c-button", {attrs: {"content": option.label}}, {"shouldRender": true}, []);
+        return m("c-button", {attrs: {content: option.label}}, {dynamic: 1}, []);
       })
     }
-
-    return m("div", {attrs: {"class": "prompts"}}, {"shouldRender": true}, buttons);
+    console.log("Rendering prompt");
+    return m("div", {attrs: {class: "prompts"}}, {dynamic: 1}, buttons);
   }
 };
 module.exports = function(Moon) {

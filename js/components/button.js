@@ -1,11 +1,5 @@
 var options = {
   props: ["content", "size", "color"],
-  data: function() {
-    return {
-      color: "blue",
-      size: "large",
-    }
-  },
   name: 'c-button',
   methods: {
     clicked: function(e) {
@@ -19,16 +13,21 @@ var options = {
     var size = instance.get("size");
     var content = instance.get("content");
     console.log("Rendering button");
-    return m("button", {
-      attrs: {"class": "" + color + " " + size + ""}
-    }, {
-      "shouldRender": true,
-      "eventListeners": {
-        "click": [function(event) {
+    var buttonClass = "";
+    if (color) {
+      buttonClass += color + " ";
+    }
+    if (size) {
+      buttonClass += size + " ";
+    }
+    return m("button", {attrs: {class: buttonClass}}, {
+      dynamic: 1,
+      eventListeners: {
+        click: [function(event) {
           instance.get('clicked')(event);
         }]
       }
-    }, [m("#text", {"shouldRender": true}, content)]);
+    }, [m("#text", {dynamic: 1}, content)]);
   },
 };
 module.exports = function(Moon) {
